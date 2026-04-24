@@ -56,7 +56,7 @@ export default function SitePage({ siteId }: SitePageProps) {
     window.scrollTo(0, 0);
   }, [siteId]);
 
-  const [isDesktopMode, setIsDesktopMode] = useState(true);
+  const [isDesktopMode, setIsDesktopMode] = useState(false);
 
   // Desktop Mode logic for mobile
   useEffect(() => {
@@ -132,22 +132,13 @@ export default function SitePage({ siteId }: SitePageProps) {
             <h1 className="text-2xl font-serif tracking-tight font-medium uppercase">{config.name}</h1>
           </div>
           <div className="flex items-center gap-3 md:gap-6">
-            {/* Desktop Mode Toggle for Mobile - Highly Visible */}
+            {/* Desktop Mode Toggle for Mobile */}
             <button
               onClick={() => setIsDesktopMode(!isDesktopMode)}
-              className="flex md:hidden items-center gap-2 px-3 py-2 rounded-xl bg-primary text-white border border-white/20 shadow-[0_0_15px_rgba(0,0,0,0.5)] z-[60] hover:scale-105 active:scale-95 transition-all"
-              style={{ backgroundColor: config.colors.primary }}
+              className="hidden sm:hidden xs:flex p-2 rounded-full border border-primary/20 bg-primary/10 text-[8px] uppercase tracking-tighter font-bold"
+              title="Toggle Desktop View"
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                {isDesktopMode ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                )}
-              </svg>
-              <span className="text-[10px] font-bold uppercase tracking-wider">
-                {isDesktopMode ? 'Mobile View' : 'Desktop View'}
-              </span>
+              {isDesktopMode ? 'Mobile' : 'Desktop'}
             </button>
 
             <span
