@@ -56,6 +56,30 @@ export default function SitePage({ siteId }: SitePageProps) {
     window.scrollTo(0, 0);
   }, [siteId]);
 
+  const [isDesktopMode, setIsDesktopMode] = useState(true);
+
+  // Desktop Mode logic for mobile
+  useEffect(() => {
+    if (isDesktopMode) {
+      document.body.style.width = '1280px';
+      document.body.style.transform = `scale(${window.innerWidth / 1280})`;
+      document.body.style.transformOrigin = 'top left';
+      document.body.style.overflowX = 'hidden';
+      document.documentElement.style.overflowX = 'hidden';
+    } else {
+      document.body.style.width = '';
+      document.body.style.transform = '';
+      document.body.style.transformOrigin = '';
+      document.body.style.overflowX = '';
+      document.documentElement.style.overflowX = '';
+    }
+    return () => {
+      document.body.style.width = '';
+      document.body.style.transform = '';
+      document.body.style.transformOrigin = '';
+    };
+  }, [isDesktopMode]);
+
   if (!config) return <div>Site not found</div>;
 
   const particleType = config.type === 'cafe' ? 'coffee' : 
@@ -107,14 +131,45 @@ export default function SitePage({ siteId }: SitePageProps) {
             </Link>
             <h1 className="text-2xl font-serif tracking-tight font-medium uppercase">{config.name}</h1>
           </div>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 md:gap-6">
+            {/* Desktop Mode Toggle for Mobile - Highly Visible */}
+            <button
+              onClick={() => setIsDesktopMode(!isDesktopMode)}
+              className="flex md:hidden items-center gap-2 px-3 py-2 rounded-xl bg-primary text-white border border-white/20 shadow-[0_0_15px_rgba(0,0,0,0.5)] z-[60] hover:scale-105 active:scale-95 transition-all"
+              style={{ backgroundColor: config.colors.primary }}
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                {isDesktopMode ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                )}
+              </svg>
+              <span className="text-[10px] font-bold uppercase tracking-wider">
+                {isDesktopMode ? 'Mobile View' : 'Desktop View'}
+              </span>
+            </button>
+
             <span
-              className="text-[10px] px-4 py-1.5 uppercase tracking-[0.3em] font-sans font-semibold border border-primary/20 rounded-full"
+              className="hidden md:inline-block text-[10px] px-4 py-1.5 uppercase tracking-[0.3em] font-sans font-semibold border border-primary/20 rounded-full"
               style={{ backgroundColor: config.colors.primary + '15', color: config.colors.primary }}
             >
               {config.type}
             </span>
-            <ThemeToggle />
+            
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <button
+                onClick={() => setIsAdminOpen(true)}
+                className="p-3 rounded-full bg-foreground/10 border border-foreground/20 backdrop-blur-md hover:bg-foreground/20 transition-all duration-300"
+                title="Admin Panel"
+              >
+                <svg className="w-5 h-5 text-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </nav>
@@ -213,6 +268,8 @@ export default function SitePage({ siteId }: SitePageProps) {
 
       {/* Admin Panel */}
       <AdminPanel
+        isOpen={isAdminOpen}
+        onOpenChange={setIsAdminOpen}
         siteConfig={config}
         categories={menu.categories}
         onAddItem={addItem}
