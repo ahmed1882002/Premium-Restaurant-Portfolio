@@ -107,7 +107,10 @@ export default function CategoryDetailPage() {
                 <h3 className="font-serif text-3xl italic group-hover:text-warm-accent transition-colors">
                   {item.name}
                 </h3>
-                <span className="font-sans text-sm font-bold opacity-40">${item.price}</span>
+                <div className="flex flex-col items-end">
+                  <span className="font-sans text-sm font-bold opacity-40">${item.price}</span>
+                  <span className="text-[8px] uppercase tracking-[0.2em] text-primary/60 group-hover:text-primary transition-colors mt-1 font-bold">Tap to Order</span>
+                </div>
               </div>
               <div className="w-full h-[1px] bg-white/5 mt-4 group-hover:bg-white/20 transition-colors" />
               <p className="font-serif italic text-lg opacity-30 mt-4 leading-relaxed line-clamp-2">

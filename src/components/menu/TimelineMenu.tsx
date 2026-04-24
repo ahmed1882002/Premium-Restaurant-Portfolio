@@ -52,8 +52,8 @@ function CategoryRow({
           className="px-12 py-6 z-20 min-w-[250px] text-center shadow-2xl transition-all duration-700 bg-background text-foreground border border-border hover:border-primary hover:text-primary hover:scale-105"
         >
           <div className="font-serif text-3xl italic leading-none">{category.name}</div>
-          <div className="font-sans text-[10px] font-bold mt-3 opacity-40 tracking-[0.4em] uppercase">
-            View Selection
+          <div className="font-sans text-[10px] font-bold mt-3 opacity-60 tracking-[0.4em] uppercase text-primary">
+            Explore & Order
           </div>
         </motion.button>
 
