@@ -56,10 +56,14 @@ export default function SitePage({ siteId }: SitePageProps) {
     window.scrollTo(0, 0);
   }, [siteId]);
 
-  const [isDesktopMode, setIsDesktopMode] = useState(false);
+  const [isDesktopMode, setIsDesktopMode] = useState(() => {
+    return localStorage.getItem('flavortable_desktop_mode') === 'true';
+  });
 
   // Desktop Mode logic for mobile
   useEffect(() => {
+    localStorage.setItem('flavortable_desktop_mode', isDesktopMode.toString());
+    
     if (isDesktopMode) {
       document.body.style.width = '1280px';
       document.body.style.transform = `scale(${window.innerWidth / 1280})`;
