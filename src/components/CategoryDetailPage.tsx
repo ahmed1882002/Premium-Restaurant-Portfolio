@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { siteConfigs, getSiteConfig } from '@/data/siteConfigs';
 import { getDefaultMenu } from '@/data/defaultMenus';
+import { getAssetPath } from '@/utils/assetHelper';
 
 export default function CategoryDetailPage() {
   const { categoryId } = useParams();
@@ -92,7 +93,7 @@ export default function CategoryDetailPage() {
             >
               <div className="relative aspect-[4/5] overflow-hidden mb-8 shadow-2xl border border-white/5">
                 <img 
-                  src={item.image || '/images/placeholder.jpg'} 
+                  src={getAssetPath(item.image || '/images/placeholder.jpg')} 
                   alt={item.name}
                   className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110"
                 />

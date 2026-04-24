@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useNavigate, useParams } from 'react-router-dom';
 import type { Category, MenuItem } from '@/types/menu';
+import { getAssetPath } from '@/utils/assetHelper';
 
 interface TimelineMenuProps {
   categories: Category[];
@@ -73,7 +74,7 @@ function CategoryRow({
               className="relative aspect-[16/7] w-full overflow-hidden mb-8 shadow-2xl group cursor-pointer border border-foreground/10"
             >
               <img 
-                src={categoryImage} 
+                src={getAssetPath(categoryImage)} 
                 alt={category.name}
                 className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105"
               />

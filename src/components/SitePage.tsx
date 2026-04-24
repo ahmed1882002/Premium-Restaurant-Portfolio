@@ -5,6 +5,7 @@ import ParticleScene from '@/components/three/ParticleScene';
 import OrbitStats from '@/components/effects/OrbitStats';
 import ThemeToggle from '@/components/ThemeToggle';
 import AdminPanel from '@/components/admin/AdminPanel';
+import { getAssetPath } from '@/utils/assetHelper';
 import { getSiteConfig } from '@/data/siteConfigs';
 import SteamEffect from '@/components/effects/SteamEffect';
 import FallingParticles from '@/components/effects/FallingParticles';
@@ -147,7 +148,7 @@ export default function SitePage({ siteId }: SitePageProps) {
 
             <div className="relative w-full max-w-5xl aspect-[16/8] overflow-hidden mb-20 group shadow-2xl">
               <img
-                src={config.heroImage}
+                src={getAssetPath(config.heroImage)}
                 alt={config.name}
                 className="w-full h-full object-cover animate-slow-zoom transition-transform duration-[4s] group-hover:scale-105"
               />

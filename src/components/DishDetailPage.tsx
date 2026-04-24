@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { siteConfigs, getSiteConfig } from '@/data/siteConfigs';
 import { getDefaultMenu } from '@/data/defaultMenus';
+import { getAssetPath } from '@/utils/assetHelper';
 import SteamEffect from '@/components/effects/SteamEffect';
 
 export default function DishDetailPage() {
@@ -84,7 +85,7 @@ export default function DishDetailPage() {
             initial={{ scale: 1.2, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-            src={item.image || '/images/placeholder.jpg'} 
+            src={getAssetPath(item.image || '/images/placeholder.jpg')} 
             alt={item.name}
             className="w-full h-full object-cover"
           />

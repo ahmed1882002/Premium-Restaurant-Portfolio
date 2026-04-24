@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { siteConfigs } from '@/data/siteConfigs';
 import { useEffect, useRef, useState } from 'react';
+import { getAssetPath } from '@/utils/assetHelper';
 
 function ParticleCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -226,7 +227,7 @@ function SiteCard({ site }: { site: import('@/types/menu').SiteConfig }) {
     >
       <div className="relative h-40 overflow-hidden">
         <img
-          src={site.heroImage}
+          src={getAssetPath(site.heroImage)}
           alt={site.name}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
